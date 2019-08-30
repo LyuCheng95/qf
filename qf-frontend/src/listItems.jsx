@@ -24,6 +24,7 @@ export const listItems = () => {
         <ListItem
           button
           onClick = {() => navigate(item.url)}
+          key={item.name}
         >
           <ListItemIcon>
             {item.icon}

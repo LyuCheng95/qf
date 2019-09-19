@@ -10,7 +10,7 @@ import { hdbCalculator } from '../api';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    minWidth: 275,
+    width: "100%"
   },
   pos: {
     marginBottom: 12,

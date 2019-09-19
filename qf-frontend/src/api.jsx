@@ -1,4 +1,4 @@
-const url = 'http://localhost:5001/'
+const url = 'http://localhost:5000/'
 export function hdbCalculator(r, pv, t) {
     const queryString = url + 'hdbCalculator?r=' + r + '&pv=' + pv + '&t=' + t;
     return fetch(queryString)

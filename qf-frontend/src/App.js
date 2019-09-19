@@ -83,6 +83,16 @@ const useStyles = makeStyles(theme => ({
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
+    paddingLeft: '0',
+    paddingRight: '0',
+    margin: 'auto',
+    [theme.breakpoints.down('xl')]: {
+      width: '960px',
+    },
+    [theme.breakpoints.up('xl')]: {
+      maxWidth: '1500px',
+      width: '1500px',
+    },
   },
   paper: {
     padding: theme.spacing(2),
@@ -140,7 +150,7 @@ export default function App() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container className={classes.container}>
           {/* {renderRoutes} */}
           {routeResult}
         </Container>

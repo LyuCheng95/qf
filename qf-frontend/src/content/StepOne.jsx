@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import ReactJson from 'react-json-view'
@@ -14,8 +14,9 @@ import {
 } from 'react-vis';
 
 const useStyles = makeStyles(theme => ({
-  card: {
-    width: "100%"
+  cardRoot: {
+    width: "100%",
+    marginBottom: "20px"
   },
 }));
 
@@ -47,23 +48,39 @@ export default function StepOne(props) {
       { x: 9, y: 2 }
     ]
   };
+  const [stockDiagramData, setStockDiagramData] = useState(stockData);
+  const updateJson = info => {
+    let newStockDiagramData = JSON.parse(JSON.stringify(stockDiagramData));
+    newStockDiagramData[info.namespace[0]][Number(info.namespace[1])][info.name] = info.new_value;
+    console.log(newStockDiagramData);
+    setStockDiagramData(newStockDiagramData);
+  }
+  console.log(stockDiagramData);
   return (
-    <Card>
-      <FlexibleWidthXYPlot height={500}>
-        <VerticalGridLines />
-        <HorizontalGridLines />
-        <XAxis />
-        <YAxis />
-        <LineSeries data={stockData.stockOne} />
-        <LineSeries data={stockData.stockTwo} />
-      </FlexibleWidthXYPlot>
-      <ReactJson
-        src={stockData}
-        theme="monokai"
-        displayDataTypes={false}
-        displayObjectSize={false}
-        style={{ 'font-family': 'Verdana' }}
-      />
-    </Card>
+    <>
+      <Card
+        classes={{root: classes.cardRoot}}
+      >
+        <FlexibleWidthXYPlot height={500}>
+          <VerticalGridLines />
+          <HorizontalGridLines />
+          <XAxis />
+          <YAxis />
+          <LineSeries data={stockDiagramData.stockOne} />
+          <LineSeries data={stockDiagramData.stockTwo} />
+        </FlexibleWidthXYPlot>
+      </Card>
+      <Card>
+        <ReactJson
+          src={stockDiagramData}
+          theme="monokai"
+          displayDataTypes={false}
+          displayObjectSize={false}
+          style={{ 'font-family': 'Verdana' }}
+          onEdit={updateJson}
+          enableClipboard={false}
+        />
+      </Card>
+    </>
   );
 }
